@@ -1,7 +1,7 @@
 syntax: glob
 *.pyc
 *~
-config.json
+# config.json
 dist/*
 build/*
 cache
@@ -23,11 +23,8 @@ msvcp90.dll
 .idea/*
 .DS_Store
 
-# vscode
-.vscode/
-
 # Jykell files
 docs/.jekyll-metadata
 
 # Python venv
-venv/
+.venv/

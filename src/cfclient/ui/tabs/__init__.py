@@ -44,6 +44,11 @@ from .LogClientTab import LogClientTab
 from .lighthouse_tab import LighthouseTab
 from .TuningTab import TuningTab
 
+import os
+import sys
+sys.path.append(os.getcwd() + '/..')
+from lis.ui.tabs.__init__ import available as lis_available
+
 __author__ = 'Bitcraze AB'
 __all__ = []
 
@@ -52,14 +57,14 @@ available = [
     # ExampleTab,
     FlightTab,
     # GpsTab,
-    LEDTab,
+    # LEDTab,
     LogBlockTab,
     LogTab,
     ParamTab,
-    PlotTab,
+    # PlotTab,
     LocoPositioningTab,
-    LighthouseTab,
+    # LighthouseTab,
     LogClientTab,
     TuningTab,
     CrtpSharkToolbox,
-]
+] + lis_available

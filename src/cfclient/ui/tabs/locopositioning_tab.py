@@ -124,7 +124,7 @@ class Plot3dLps(scene.SceneCanvas):
     TEXT_OFFSET = np.array((0.0, 0, 0.25))
 
     def __init__(self):
-        scene.SceneCanvas.__init__(self, keys=None)
+        scene.SceneCanvas.__init__(self, keys=None, resizable=True, size=(2.0,2.0))
         self.unfreeze()
 
         self._view = self.central_widget.add_view()

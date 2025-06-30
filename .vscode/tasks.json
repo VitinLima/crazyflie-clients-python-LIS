@@ -1,0 +1,57 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "Create virtual environment",
+            "command": "python3 -m venv ${workspaceFolder}/.venv; source ${workspaceFolder}/.venv/bin/activate; pip install -e .; pip install cfclient",
+            "detail": "Creates venv for working with this app",
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            }
+        },
+        {
+            "type": "shell",
+            "label": "Open cfclient",
+            "command": "source ${workspaceFolder}/.venv/bin/activate; python3 -m cfclient.gui",
+            "detail": "Open cfclient the GUI",
+            "group": {
+                "kind": "none",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "Open ui with qtdesigner",
+            "command": "designer ${file}",
+            "detail": "Launch qtdesigner opening current file",
+            "group": "none",
+            "options": {
+                "env": {
+                    "PATH": "/home/vitinho/Programs/miniconda3/condabin:/home/vitinho/.pixi/bin:/home/vitinho/Programs/scripts:/home/vitinho/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin"
+                }
+            }
+        },
+		{
+			"type": "shell",
+			"label": "pull tasks",
+			"command": "cp ../resources/configs/cfclient-tasks.json ${workspaceFolder}/.vscode/tasks.json",
+			"args": [],
+			"options": {},
+			"group": {
+				"kind": "none",
+				"isDefault": false
+			},
+			"problemMatcher": [],
+			"detail": "Copy cfclient-task.json from resources into current ws .vscode folder as tasks.json"
+		},
+        {
+            "type":"shell",
+            "label": "ctrl+r",
+            "dependsOn":[
+                "Open cfclient"
+            ]
+        }
+    ]
+}
