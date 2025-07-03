@@ -419,36 +419,37 @@ class FlightTab(TabToolbox, flight_tab_class):
     def _update_flight_commander(self, connected):
         self.commanderBox.setToolTip(str())
         if not connected:
-            self.commanderBox.setEnabled(False)
+            self.commanderBox.setEnabled(True)
             return
 
         if self._can_fly_deprecated == 0:
-            self.commanderBox.setEnabled(False)
+            self.commanderBox.setEnabled(True)
             self.commanderBox.setToolTip('The Crazyflie reports that flight is not possible')
             return
 
         # We cannot know if we have a positioning deck until we get params
         if not self._helper.cf.param.is_updated:
-            self.commanderBox.setEnabled(False)
+            self.commanderBox.setEnabled(True)
             return
 
-        #                  flowV1    flowV2     LightHouse       LPS
-        position_decks = ['bcFlow', 'bcFlow2', 'bcLighthouse4', 'bcLoco', 'bcDWM1000']
-        for deck in position_decks:
-            if int(self._helper.cf.param.values['deck'][deck]) == 1:
-                self.commanderBox.setEnabled(True)
-                break
-        else:
-            self.commanderBox.setToolTip('You need a positioning deck to use Command Based Flight')
-            self.commanderBox.setEnabled(False)
-            return
+        # #                  flowV1    flowV2     LightHouse       LPS
+        # position_decks = ['bcFlow', 'bcFlow2', 'bcLighthouse4', 'bcLoco', 'bcDWM1000']
+        # for deck in position_decks:
+        #     if int(self._helper.cf.param.values['deck'][deck]) == 1:
+        #         self.commanderBox.setEnabled(True)
+        #         break
+        # else:
+        #     self.commanderBox.setToolTip('You need a positioning deck to use Command Based Flight')
+        #     self.commanderBox.setEnabled(True)
+        #     return
+        self.commanderBox.setEnabled(True)
 
         # To prevent conflicting commands from the controller and the flight panel
         if JoystickReader().available_devices():
             self.commanderBox.setToolTip(
                 'Cant use both an controller and Command Based Flight'
             )
-            self.commanderBox.setEnabled(False)
+            self.commanderBox.setEnabled(True)
             return
 
     def connected(self, linkURI):
@@ -773,9 +774,9 @@ class FlightTab(TabToolbox, flight_tab_class):
             self._ring_effect_changed)
 
         self._led_ring_effect.setCurrentIndex(current)
-        if int(self._helper.cf.param.values["deck"]["bcLedRing"]) == 1:
-            self._led_ring_effect.setEnabled(True)
-            self._led_ring_headlight.setEnabled(True)
+        # if int(self._helper.cf.param.values["deck"]["bcLedRing"]) == 1:
+        #     self._led_ring_effect.setEnabled(True)
+        #     self._led_ring_headlight.setEnabled(True)
 
     def _ring_effect_changed(self, index):
         self._ring_effect = index
@@ -804,23 +805,23 @@ class FlightTab(TabToolbox, flight_tab_class):
         heightHoldPossible = False
         hoverPossible = False
 
-        if int(self._helper.cf.param.values["deck"]["bcZRanger"]) == 1:
-            heightHoldPossible = True
-            self._helper.inputDeviceReader.set_hover_max_height(1.0)
+        # if int(self._helper.cf.param.values["deck"]["bcZRanger"]) == 1:
+        #     heightHoldPossible = True
+        #     self._helper.inputDeviceReader.set_hover_max_height(1.0)
 
-        if int(self._helper.cf.param.values["deck"]["bcZRanger2"]) == 1:
-            heightHoldPossible = True
-            self._helper.inputDeviceReader.set_hover_max_height(2.0)
+        # if int(self._helper.cf.param.values["deck"]["bcZRanger2"]) == 1:
+        #     heightHoldPossible = True
+        #     self._helper.inputDeviceReader.set_hover_max_height(2.0)
 
-        if int(self._helper.cf.param.values["deck"]["bcFlow"]) == 1:
-            heightHoldPossible = True
-            hoverPossible = True
-            self._helper.inputDeviceReader.set_hover_max_height(1.0)
+        # if int(self._helper.cf.param.values["deck"]["bcFlow"]) == 1:
+        #     heightHoldPossible = True
+        #     hoverPossible = True
+        #     self._helper.inputDeviceReader.set_hover_max_height(1.0)
 
-        if int(self._helper.cf.param.values["deck"]["bcFlow2"]) == 1:
-            heightHoldPossible = True
-            hoverPossible = True
-            self._helper.inputDeviceReader.set_hover_max_height(2.0)
+        # if int(self._helper.cf.param.values["deck"]["bcFlow2"]) == 1:
+        #     heightHoldPossible = True
+        #     hoverPossible = True
+        #     self._helper.inputDeviceReader.set_hover_max_height(2.0)
 
         if not heightHoldPossible:
             self._assist_mode_combo.model().item(2).setEnabled(False)
