@@ -53,7 +53,7 @@ __author__ = 'Bitcraze AB'
 __all__ = []
 
 available = [
-    # ConsoleTab,
+    ConsoleTab,
     # ExampleTab,
     FlightTab,
     # GpsTab,
