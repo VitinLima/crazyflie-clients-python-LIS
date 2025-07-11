@@ -67,4 +67,4 @@ available = [
     # LogClientTab,
     # TuningTab,
     # CrtpSharkToolbox,
-] + lis_available
+]# + lis_available
