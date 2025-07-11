@@ -162,6 +162,7 @@ class FlightTab(TabToolbox, flight_tab_class):
         self._log_error_signal.connect(self._logging_error)
 
         self._isConnected = False
+        self.sitl_enabled = False
 
         # Connect UI signals that are in this tab
         self.flightModeCombo.currentIndexChanged.connect(self.flightmodeChange)
@@ -805,23 +806,27 @@ class FlightTab(TabToolbox, flight_tab_class):
         heightHoldPossible = False
         hoverPossible = False
 
-        # if int(self._helper.cf.param.values["deck"]["bcZRanger"]) == 1:
-        #     heightHoldPossible = True
-        #     self._helper.inputDeviceReader.set_hover_max_height(1.0)
+        link_uri = Config().get("link_uri")
+        if link_uri.startswith("udp://"):
+            self.sitl_enabled = True
+        if not self.sitl_enabled:
+            if int(self._helper.cf.param.values["deck"]["bcZRanger"]) == 1:
+                heightHoldPossible = True
+                self._helper.inputDeviceReader.set_hover_max_height(1.0)
 
-        # if int(self._helper.cf.param.values["deck"]["bcZRanger2"]) == 1:
-        #     heightHoldPossible = True
-        #     self._helper.inputDeviceReader.set_hover_max_height(2.0)
+            if int(self._helper.cf.param.values["deck"]["bcZRanger2"]) == 1:
+                heightHoldPossible = True
+                self._helper.inputDeviceReader.set_hover_max_height(2.0)
 
-        # if int(self._helper.cf.param.values["deck"]["bcFlow"]) == 1:
-        #     heightHoldPossible = True
-        #     hoverPossible = True
-        #     self._helper.inputDeviceReader.set_hover_max_height(1.0)
+            if int(self._helper.cf.param.values["deck"]["bcFlow"]) == 1:
+                heightHoldPossible = True
+                hoverPossible = True
+                self._helper.inputDeviceReader.set_hover_max_height(1.0)
 
-        # if int(self._helper.cf.param.values["deck"]["bcFlow2"]) == 1:
-        #     heightHoldPossible = True
-        #     hoverPossible = True
-        #     self._helper.inputDeviceReader.set_hover_max_height(2.0)
+            if int(self._helper.cf.param.values["deck"]["bcFlow2"]) == 1:
+                heightHoldPossible = True
+                hoverPossible = True
+                self._helper.inputDeviceReader.set_hover_max_height(2.0)
 
         if not heightHoldPossible:
             self._assist_mode_combo.model().item(2).setEnabled(False)
